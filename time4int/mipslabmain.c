@@ -65,12 +65,12 @@ int main(void) {
 
 	display_image(0, gameBoard);
 
-	/*labinit(); /* Do any lab-specific initialization */
+	labinit(); /* Do any lab-specific initialization */
 
-	/*while( 1 )
+	while( 1 )
 	{
-	  labwork(); /* Do lab-specific things again and again
-	}*/
+	  labwork(); /* Do lab-specific things again and again */
+	}
 
 	return 0;
 }
