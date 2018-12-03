@@ -11,27 +11,6 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
-struct pongTable {
-	const int leftWall;
-	const int rightWall;
-	const int roof;
-	const int floor;
-};
-
-struct ball {
-	int xPosition;
-	int yPosition;
-};
-
-struct player1Bar {
-	const int xPosition;
-	int yPosition;
-};
-
-struct player2Bar {
-	const int xPosition;
-	int yPosition;
-};
 
 int main(void) {
         /*
@@ -85,7 +64,7 @@ int main(void) {
 	display_update();
 
 
-	display_image(0, icon);
+	display_image(0, gameBoard);
 	labinit(); /* Do any lab-specific initialization */
 
 	while( 1 )

@@ -8,7 +8,7 @@
    For copyright and licensing, see file COPYING */
 
 /* Declare display-related functions from mipslabfunc.c */
-void display_image(int x, const uint8_t *data);
+void display_image(int x, uint8_t *data);
 void display_init(void);
 void display_string(int line, char *s);
 void display_update(void);
@@ -38,7 +38,7 @@ void display_debug( volatile int * const addr );
 /* Declare bitmap array containing font */
 extern const uint8_t const font[128*8];
 /* Declare bitmap array containing icon */
-extern const uint8_t const icon[512];
+extern uint8_t  gameBoard[512];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
 
@@ -53,3 +53,7 @@ void time2string( char *, int );
 int getbtns(void);
 int getsw(void);
 void enable_interrupt(void);
+
+/* The ball
+*/
+void display_ball(uint8_t *data);
