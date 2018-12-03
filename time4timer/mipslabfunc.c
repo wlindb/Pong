@@ -9,6 +9,7 @@
 #include "mipslab.h"  /* Declatations for these labs */
 
 
+
 struct ball {
 	uint8_t xPosition;
 	uint8_t yPosition;
@@ -18,7 +19,10 @@ struct playerBar {
 	int yPosition;
 };
 
+struct playerBar playerLeftBar;
+struct playerBar playerRightBar;
 struct ball ball1;
+
 
 /* Declare a helper function which is local to this file */
 static void num32asc( char * s, int );
@@ -156,7 +160,6 @@ void display_string(int line, char *s) {
 void display_image(int x, uint8_t *data) {
 	int i, j;
 
-	display_ball(data);
 
 	for(i = 0; i < 4; i++) {
 		DISPLAY_CHANGE_TO_COMMAND_MODE;
@@ -174,16 +177,12 @@ void display_image(int x, uint8_t *data) {
 	}
 }
 
-void display_ball(uint8_t *data){
-	ball1.xPosition = 35;
-	ball1.yPosition = 128;
-	data[ball1.xPosition] = ball1.yPosition;
-}
+
 
 void display_update(void) {
 	int i, j, k;
 	int c;
-	for(i = 0; i < 4; i++) {
+	for(i = 0; i < 32; i++) {
 		DISPLAY_CHANGE_TO_COMMAND_MODE;
 		spi_send_recv(0x22);
 		spi_send_recv(i);
@@ -193,7 +192,7 @@ void display_update(void) {
 
 		DISPLAY_CHANGE_TO_DATA_MODE;
 
-		for(j = 0; j < 16; j++) {
+		for(j = 0; j < 128; j++) {
 			c = textbuffer[i][j];
 			if(c & 0x80)
 				continue;
