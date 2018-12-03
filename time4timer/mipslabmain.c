@@ -11,6 +11,28 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
+struct pongTable {
+	const int leftWall;
+	const int rightWall;
+	const int roof;
+	const int floor;
+};
+
+struct ball {
+	int xPosition;
+	int yPosition;
+};
+
+struct player1Bar {
+	const int xPosition;
+	int yPosition;
+};
+
+struct player2Bar {
+	const int xPosition;
+	int yPosition;
+};
+
 int main(void) {
         /*
 	  This will set the peripheral bus clock to the same frequency
@@ -23,13 +45,13 @@ int main(void) {
 	OSCCONCLR = 0x180000; /* clear PBDIV bit <0,1> */
 	while(OSCCON & (1 << 21));  /* Wait until PBDIV ready */
 	SYSKEY = 0x0;  /* Lock OSCCON */
-	
+
 	/* Set up output pins */
 	AD1PCFG = 0xFFFF;
 	ODCE = 0x0;
 	TRISECLR = 0xFF;
 	PORTE = 0x0;
-	
+
 	/* Output pins for display signals */
 	PORTF = 0xFFFF;
 	PORTG = (1 << 9);
@@ -37,11 +59,11 @@ int main(void) {
 	ODCG = 0x0;
 	TRISFCLR = 0x70;
 	TRISGCLR = 0x200;
-	
+
 	/* Set up input pins */
 	TRISDSET = (1 << 8);
 	TRISFSET = (1 << 1);
-	
+
 	/* Set up SPI as master */
 	SPI2CON = 0;
 	SPI2BRG = 4;
@@ -53,15 +75,15 @@ int main(void) {
 	SPI2CONSET = 0x20;
 	/* SPI2CON bit ON = 1; */
 	SPI2CONSET = 0x8000;
-	
+
 	display_init();
-	
+
 	display_string(0, "KTH/ICT lab asdf agdgadgag");
 	display_string(1, "in Computer");
 	display_string(2, "Engineering");
 	display_string(3, "Welcome!");
 	display_update();
-	
+
 
 	display_image(0, icon);
 	labinit(); /* Do any lab-specific initialization */
