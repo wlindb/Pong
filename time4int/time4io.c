@@ -12,3 +12,7 @@ int getsw(void){
 int getbtns(void){
 	return ((PORTD>>5)&7);
 }
+
+int getLastBTN(void){
+	return((PORTF>>1)&1);
+}

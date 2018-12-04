@@ -12,7 +12,8 @@
 #include "mipslab.h"  /* Declatations for these labs */
 
 int main(void) {
-        /*
+	
+    /*
 	  This will set the peripheral bus clock to the same frequency
 	  as the sysclock. That means 80 MHz, when the microcontroller
 	  is running at 80 MHz. Changed 2017, as recommended by Axel.
@@ -62,15 +63,21 @@ int main(void) {
 	display_string(3, "Welcome!");
 	display_update();
 	*/
+	//gameBoard[320] = 1;
 
+
+	init_xyBitMap();
+	bitmapConverter();
 	display_image(0, gameBoard);
 
 	labinit(); /* Do any lab-specific initialization */
+
+	
 
 	while( 1 )
 	{
 	  labwork(); /* Do lab-specific things again and again */
 	}
-
+	
 	return 0;
 }

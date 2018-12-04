@@ -19,6 +19,12 @@ leftBar.yPosition = */
 
 /* Declare a helper function which is local to this file */
 static void num32asc( char * s, int );
+int x = 64;
+int y = 16;
+int xDir = 1;
+int yDir = 1;
+
+
 
 #define DISPLAY_CHANGE_TO_COMMAND_MODE (PORTFCLR = 0x10)
 #define DISPLAY_CHANGE_TO_DATA_MODE (PORTFSET = 0x10)
@@ -330,4 +336,46 @@ char * itoaconv( int num )
   /* Since the loop always sets the index i to the next empty position,
    * we must add 1 in order to return a pointer to the first occupied position. */
   return( &itoa_buffer[ i + 1 ] );
+}
+
+void ball(void){
+  
+  xyBitMap[x][y] = 0;
+  if(y == 30){
+    yDir = -1;
+  } else if(y == 2){
+    yDir = 1;
+  }
+  if(x == 122){
+    xDir = -1;
+  } else if(x == 5){
+    xDir = 1;
+  }
+  x += xDir;
+  y += yDir;
+  xyBitMap[x][y] = 1;
+  bitmapConverter();
+
+  
+  
+}
+
+    /* Init xyBitmap */
+void init_xyBitMap(void){
+  int i = 0;
+  while(i < 128){
+    int j = 0;
+    while(j < 32){
+        xyBitMap[0][j] = 1; // Set first value in each row in gameBoard to 255
+        xyBitMap[i][0] = 1; // Set all other values in first row in gameBoard to 1
+        xyBitMap[127][j]=1; // Set last value in each row in gameBoard to 255
+        xyBitMap[i][31] = 1; // Set all other values in last row in gameBoard to 128
+        j++;
+        // Init bars
+        if((i == 4 || i == 123) && (j >= 12 && j <= 19)){
+          xyBitMap[i][j] = 1;
+        }
+     }
+     i++;
+  }
 }
