@@ -5,25 +5,22 @@
    For copyright and licensing, see file COPYING */
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <stdlib.h>
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
-/*struct playerBar {
-	const int xPosition 
-	int yPosition;
-}*/
-/*
-struct playerBar leftBar;
-leftBar.xPosition =
-leftBar.yPosition = */
 
 /* Declare a helper function which is local to this file */
 static void num32asc( char * s, int );
+void new_game(void);
+void ballDelay(void);
+char p1score = '0';
+char p2score = '0'; 
 int x = 64;
 int y = 16;
 int xDir = 1;
 int yDir = 1;
-
+int ballDel = 15;
 
 
 #define DISPLAY_CHANGE_TO_COMMAND_MODE (PORTFCLR = 0x10)
@@ -346,18 +343,65 @@ void ball(void){
   } else if(y == 2){
     yDir = 1;
   }
-  if(x == 122){
+  if(x == 122 && xyBitMap[x+xDir][y+yDir] == 1){
     xDir = -1;
-  } else if(x == 5){
+  } else if(x == 5 && xyBitMap[x+xDir][y+yDir] == 1){
     xDir = 1;
+  }
+  if(x == 0){
+    p2score++;
+    char score[5] = {p1score, '-', p2score};
+    if(p2score == '3'){
+      display_string(0, "Player 2 wins!");
+      display_string(1, score);
+      display_string(2, "Press reset");
+      display_string(3, "for new game");
+      display_update();
+      delay(20000);
+    } else {
+      display_string(0, "Player 2 scores!");
+      display_string(1, score);
+      display_update();
+      delay(3000);
+      new_game();
+    }
+
+
+  } else if (x == 128) {
+    p1score++;
+    char score[5] = {p1score, '-', p2score};
+    if(p1score == '3'){
+      display_string(0, "Player 1 wins!");
+      display_string(1, score);
+      display_string(2, "Press reset");
+      display_string(3, "for new game");
+      display_update();
+      delay(20000);
+    } else {
+      display_string(0, "Player 1 scores!");
+      display_string(1, score);
+      display_update();
+      delay(3000);
+      new_game();      
+    }
+
   }
   x += xDir;
   y += yDir;
   xyBitMap[x][y] = 1;
   bitmapConverter();
+  ballDelay();
+}
 
-  
-  
+void new_game(void){
+  x = 64;
+  y = 16;
+  xDir = 1;
+  yDir = 1;
+  //reset_bars();
+  init_xyBitMap();
+  bitmapConverter();
+  display_image(0, gameBoard);
 }
 
     /* Init xyBitmap */
@@ -374,8 +418,17 @@ void init_xyBitMap(void){
         // Init bars
         if((i == 4 || i == 123) && (j >= 12 && j <= 19)){
           xyBitMap[i][j] = 1;
+        } else {
+          xyBitMap[i][j] = 0;
         }
      }
      i++;
   }
+}
+
+void ballDelay(void){
+  int switches = getsw();
+  int ballDel = 15;
+  ballDel -= switches; 
+  delay(ballDel);
 }

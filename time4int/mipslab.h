@@ -39,6 +39,8 @@ void tick( unsigned int * timep );
    about half of the digits shown by display_debug.
 */
 void display_debug( volatile int * const addr );
+void reset_bars(void);
+void ballDelay(void);
 
 
 
@@ -52,6 +54,7 @@ extern char textbuffer[4][16];
 /* Gameboard */
 extern uint8_t gameBoard[512];
 char xyBitMap[128][32];
+
 
 /* Declare functions written by students.
    Note: Since we declare these functions here,

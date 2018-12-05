@@ -2,6 +2,7 @@
 
    This file written 2015 by Axel Isaksson,
    modified 2015, 2017 by F Lundevall
+   forked by William Lindblom, Johan Besseling 
 
    Latest update 2017-04-21 by F Lundevall
 
@@ -56,16 +57,21 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 
 	display_init();
-	/*
-	display_string(0, "KTH/ICT lab");
-	display_string(1, "in Computer");
-	display_string(2, "Engineering");
-	display_string(3, "Welcome!");
-	display_update();
-	*/
-	//gameBoard[320] = 1;
 
+	// Show welcome screen
+  	display_string(0, "Pong ULTIMATE!");
+	display_string(1, "First to 5 wins");
+    display_string(2, "Use switches to");
+    display_string(3, "increase speed");
+    display_update();
+    delay(5000);
+    // reset screen
+    display_string(0, "");
+	display_string(1, "");
+    display_string(2, "");
+    display_string(3, "");
 
+    //init game board
 	init_xyBitMap();
 	bitmapConverter();
 	display_image(0, gameBoard);

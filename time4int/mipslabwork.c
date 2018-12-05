@@ -16,15 +16,15 @@
 
 int mytime = 0x5957;
 int leftBar[] = {0, 0xF, 0xF0, 0};
+int lbar[] = {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0};
+int rbar[] = {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0};
 int rightBar[] = {0, 0xF, 0xF0, 0};
 int currentIndex = 320;
 int ballArray[] = {0, 0, 1, 0};
 int direction = 1;
 
 
-
-
-char textstring[] = "text, more text, and even more text!";
+//char textstring[] = "text, more text, and even more text!";
 
 /* Set ports in TRISE for PORTE to be either open
  or closed */
@@ -80,113 +80,94 @@ void labinit(void){
   T2CON = 0x8070;
 
 }
-/*
-void ball(void){
-  int ballIndex = 0;
-  int i = 0;
-  while (i < 4) {
-    if(ballArray[i] != 0){
-       ballIndex = i; 
-      break;
+
+void reset_bars(void){
+  int i = 0; 
+  while(i<31){
+    if (i >= 12 && i <= 19) {
+      lbar[i] = 1;
+      rbar[i] = 1;
+    } else {
+      lbar[i] = 0;
+      rbar[i] = 0;
     }
-    i++;
+    return;
   }
-
- /* switch(currentIndex) {
-    case 378:
-    ball[];
-    break;
-
-    default:
-
-  }
-  if (currentIndex < 378 && currentIndex > 260) {
-    direction = 1;
-    //ball[ballIndex] += 1;
-  } else {
-    direction = -1;
-  }
-  gameBoard[currentIndex] = 0;
-  quicksleep(100000);
-  currentIndex += direction;
-  //gameBoard[currentIndex] = ballArray[ballIndex];
-  display_image(0,gameBoard);
-  
 }
 
 /* This function is called repetitively from the main program */
 void labwork(void){
     ball();
-    quicksleep(100000);
+    delay(15);
     display_image(0, gameBoard);
-    //prime = nextprime(prime);
-    //display_image(0,gameBoard);
-    //display_update();
+
     if(getbtns() != 0){
-      int switches = getsw();
       int btns = getbtns();
 
       // BTN4 Pressed and left bar has not hit the floor
-      if(((btns>>2) == 1) && !(leftBar[0]&64)){
-        
-        leftBar[0] = ((leftBar[0]<<1)|(leftBar[1]>>7)); //row4
-        leftBar[1] = (leftBar[1]<<1)|(leftBar[2]>>7); //row3
-        leftBar[2] = (leftBar[2]<<1)|(leftBar[3]>>7); //row2
-        leftBar[3] = (leftBar[3]<<1); // row1
-
-        gameBoard[4] = leftBar[3]|0x1;
-        gameBoard[128+4] = leftBar[2];
-        gameBoard[256+4] = leftBar[1];
-        gameBoard[384+4] = leftBar[0]|0x80;
-        //display_image(0,gameBoard);
-        quicksleep(100000);
+      if((btns>>2) == 1){
+          if(lbar[30] != 1){
+            int i = 30;
+            while(i > 0){
+              lbar[i] = lbar[i-1];
+              xyBitMap[4][i] = lbar[i];
+              i--;
+            }
+            xyBitMap[4][0] = 1;
+            xyBitMap[4][31] = 1;
+            bitmapConverter();
+        }        
       }
+
       //BTN3 pressed and left bar has not hit the roof
-      if(((btns>>1) == 1) && !(leftBar[3]&2)){
-
-        leftBar[3] = ((leftBar[3]>>1)|(leftBar[2]<<7)); //row4
-        leftBar[2] = (leftBar[2]>>1)|(leftBar[1]<<7); //row3
-        leftBar[1] = (leftBar[1]>>1)|(leftBar[0]<<7); //row2
-        leftBar[0] = (leftBar[0]>>1); // row1
-
-        gameBoard[4] = leftBar[3]|0x1;
-        gameBoard[128+4] = leftBar[2];
-        gameBoard[256+4] = leftBar[1];
-        gameBoard[384+4] = leftBar[0]|0x80;
-        //display_image(0,gameBoard);
-        quicksleep(100000);
+      if((btns>>1) == 1){
+          if(lbar[1] != 1){
+            int i = 1;
+            while(i < 31){
+              lbar[i] = lbar[i+1];
+              xyBitMap[4][i] = lbar[i];
+              i++;
+            }
+            xyBitMap[4][0] = 1;
+            xyBitMap[4][31] = 1;
+            bitmapConverter();
+        }
       }
 
       // BTN2 pressed and right bar has not hit the floor
-      if(((btns&1) == 1) && !(rightBar[0]&64)){
-        rightBar[0] = ((rightBar[0]<<1)|(rightBar[1]>>7)); //row4
-        rightBar[1] = (rightBar[1]<<1)|(rightBar[2]>>7); //row3
-        rightBar[2] = (rightBar[2]<<1)|(rightBar[3]>>7); //row2
-        rightBar[3] = (rightBar[3]<<1); // row1
-
-        gameBoard[123] = rightBar[3]|0x1;
-        gameBoard[251] = rightBar[2];
-        gameBoard[379] = rightBar[1];
-        gameBoard[507] = rightBar[0]|0x80;
-        //display_image(0,gameBoard);
-        quicksleep(100000);
-      }
+      if(((btns&1) == 1)){
+          if(rbar[30] != 1){
+            int i = 30;
+            while(i > 0){
+              rbar[i] = rbar[i-1];
+              xyBitMap[123][i] = rbar[i];
+              i--;
+            }
+            xyBitMap[123][0] = 1;
+            xyBitMap[123][31] = 1;
+            bitmapConverter();
+        } 
+      } 
       display_image(0, gameBoard);
+      delay(15);
     }
+
     if(getLastBTN()){
       int BTN1 = getLastBTN();
-      if ((BTN1 == 1) && !(rightBar[3]&2)) {
-        rightBar[3] = ((rightBar[3]>>1)|(rightBar[2]<<7)); //row4
-        rightBar[2] = (rightBar[2]>>1)|(rightBar[1]<<7); //row3
-        rightBar[1] = (rightBar[1]>>1)|(rightBar[0]<<7); //row2
-        rightBar[0] = (rightBar[0]>>1); // row1
-
-        gameBoard[123] = rightBar[3]|0x1;
-        gameBoard[251] = rightBar[2];
-        gameBoard[379] = rightBar[1];
-        gameBoard[507] = rightBar[0]|0x80;
-        //display_image(0,gameBoard);
-        quicksleep(100000);
+      if ((BTN1 == 1) ) {
+          if(rbar[1] != 1){
+            int i = 1;
+            while(i < 31){
+              rbar[i] = rbar[i+1];
+              xyBitMap[123][i] = rbar[i];
+              i++;
+            }
+            xyBitMap[123][0] = 1;
+            xyBitMap[123][31] = 1;
+            bitmapConverter();
+            delay(15);
+        }
+        display_image(0, gameBoard);
       }
     }
   }
