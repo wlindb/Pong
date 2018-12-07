@@ -17,11 +17,10 @@ För att säkerställa att programmet gör det programmet ska göra så har vi k
 
 För att verifiera att spelet faktiskt ökar eller sänker hastigheten har vi också gjort test där vi testar alla sorters kombinationer och ser hur bollens hastighet antingen ökar eller sjunker.
 
-1.	Contributions
-This section should explain who did what of the two project members.
+
 
 Inledningsvis arbetade vi på varsin dator för att försöka förstå koden i sin helhet ifrån laboration 3, speciellt hur displayen fungerade. När vi började få en bättre förståelse så arbetade vi mer och mer enbart på en av datorerna av praktiska själ. Vi försökte använda gitHub för att kunna arbeta parallellt men eftersom vi så gott som alltid arbetade tillsammans fungerade det bättre med att jobba på en dator i taget.
-2.	Reflections
+
 
 The last paragraph should include a few lines of reflections about the project.
 Projektet har varit lärorikt och kul att göra, men har också varit fyllt med utmaningar. Vi hade till en början svårt att förstå hur bitkartan som visualiserar displayen fungerar. För att förstå funktionaliteten gjorde vi en rad test med den gamla koden ifrån laboration 3 för att se hur displayen påverkades. När vi väl förstått hur displayen fungerar kom utmaningen med att konstruera och manipulera spelplanen under spelets gång. Eftersom displayen var uppdelad i olika segment och rader blev det komplicerat när bollen till exempel rörde sig över rad 1 till rad 2 i displayen. För att lösa detta så skapade vi en bitkarta som motsvarade ett XY-system där vi kunde manipulera bitarna på ett för oss mycket mer naturligt sätt och sedan konvertera den förenklade kartan till formen som krävs för att kunna visa datan på displayen.
