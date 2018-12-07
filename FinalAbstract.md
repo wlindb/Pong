@@ -20,7 +20,7 @@ För att verifiera att spelet faktiskt ökar eller sänker hastigheten har vi oc
 1.	Contributions
 This section should explain who did what of the two project members.
 
-Inledningsvis arbetade vi på varsin dator för att försöka förstå koden i sin helhet ifrån laboration 3, speciellt hur displayen fungerade. När vi började få en bättre förståelse så arbetade vi mer och mer enbart på Williams dator av praktiska själ. Vi försökte använda gitHub för att kunna arbeta parallellt men eftersom vi så gott som alltid arbetade tillsammans fungerade det bättre med att jobba på en dator i taget.
+Inledningsvis arbetade vi på varsin dator för att försöka förstå koden i sin helhet ifrån laboration 3, speciellt hur displayen fungerade. När vi började få en bättre förståelse så arbetade vi mer och mer enbart på en av datorerna av praktiska själ. Vi försökte använda gitHub för att kunna arbeta parallellt men eftersom vi så gott som alltid arbetade tillsammans fungerade det bättre med att jobba på en dator i taget.
 2.	Reflections
 
 The last paragraph should include a few lines of reflections about the project.
