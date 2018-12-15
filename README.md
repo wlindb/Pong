@@ -46,7 +46,7 @@ two buttons simultaneously
 
 
 Developers:
-Johan Besseling, 19910203-2712
-William Lindblom, 19960105-2435
+Johan Besseling
+William Lindblom
 
 Type of project: advanced 
